@@ -1055,92 +1055,66 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="298" parent="1" name="personsschema">
       <Current>1</Current>
-      <IntrospectionTimestamp>2023-11-06.02:58:37</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-11-05.12:58:37</LocalIntrospectionTimestamp>
+      <IntrospectionTimestamp>2023-11-21.02:18:02</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-11-20.12:18:02</LocalIntrospectionTimestamp>
       <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
-    <user id="299" parent="1" name="adept">
-      <Plugin>caching_sha2_password</Plugin>
-    </user>
-    <user id="300" parent="1" name="mysql.infoschema">
-      <CanLogin>0</CanLogin>
-      <Host>localhost</Host>
-      <Plugin>caching_sha2_password</Plugin>
-    </user>
-    <user id="301" parent="1" name="mysql.session">
-      <CanLogin>0</CanLogin>
-      <Host>localhost</Host>
-      <Plugin>caching_sha2_password</Plugin>
-    </user>
-    <user id="302" parent="1" name="mysql.sys">
-      <CanLogin>0</CanLogin>
-      <Host>localhost</Host>
-      <Plugin>caching_sha2_password</Plugin>
-    </user>
-    <user id="303" parent="1" name="root">
-      <Host>localhost</Host>
-      <Plugin>caching_sha2_password</Plugin>
-    </user>
-    <table id="304" parent="298" name="persons">
-      <Engine>InnoDB</Engine>
+    <schema id="299" parent="1" name="warcraft_schema">
       <CollationName>utf8mb3_general_ci</CollationName>
-    </table>
+    </schema>
+    <user id="300" parent="1" name="adept">
+      <Plugin>caching_sha2_password</Plugin>
+    </user>
+    <user id="301" parent="1" name="mysql.infoschema">
+      <CanLogin>0</CanLogin>
+      <Host>localhost</Host>
+      <Plugin>caching_sha2_password</Plugin>
+    </user>
+    <user id="302" parent="1" name="mysql.session">
+      <CanLogin>0</CanLogin>
+      <Host>localhost</Host>
+      <Plugin>caching_sha2_password</Plugin>
+    </user>
+    <user id="303" parent="1" name="mysql.sys">
+      <CanLogin>0</CanLogin>
+      <Host>localhost</Host>
+      <Plugin>caching_sha2_password</Plugin>
+    </user>
+    <user id="304" parent="1" name="root">
+      <Host>localhost</Host>
+      <Plugin>caching_sha2_password</Plugin>
+    </user>
     <table id="305" parent="298" name="user">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <column id="306" parent="304" name="id">
+    <column id="306" parent="305" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="307" parent="304" name="name">
+    <column id="307" parent="305" name="name">
       <DasType>varchar(45)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="308" parent="304" name="age">
-      <DasType>int|0s</DasType>
-      <Position>3</Position>
-    </column>
-    <index id="309" parent="304" name="PRIMARY">
-      <ColNames>id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <key id="310" parent="304" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <column id="311" parent="305" name="id">
-      <AutoIncrement>1</AutoIncrement>
-      <DasType>int|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="312" parent="305" name="name">
-      <DasType>varchar(45)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="313" parent="305" name="lastName">
+    <column id="308" parent="305" name="lastName">
       <DasType>varchar(45)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="314" parent="305" name="age">
+    <column id="309" parent="305" name="age">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <index id="315" parent="305" name="PRIMARY">
+    <index id="310" parent="305" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="316" parent="305" name="PRIMARY">
+    <key id="311" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
