@@ -1,16 +1,25 @@
 package jm.task.core.jdbc;
 
-import java.util.logging.Logger;
+import jm.task.core.jdbc.dao.UserDao;
+import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
+import jm.task.core.jdbc.util.Util;
+
+import java.sql.SQLException;
 
 public class Main {
 
-    public static final Logger logger = Logger.getLogger(Main.class.getName());
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         // реализуйте алгоритм здесь
-
-
-
-
+        UserDao userDao = new UserDaoJDBCImpl();
+        userDao.createUsersTable();
+        userDao.saveUser("Ichigo", "Kurosaki", (byte) 16);
+        userDao.saveUser("Antimage", "Antimagovich", (byte) 21);
+        userDao.saveUser("Gordon", "Freeman", (byte) 27);
+        userDao.saveUser("Kira", "Yoshikage", (byte) 33);
+        userDao.getAllUsers();
+        userDao.cleanUsersTable();
+        userDao.dropUsersTable();
+        Util.closeConnection();
     }
 
 

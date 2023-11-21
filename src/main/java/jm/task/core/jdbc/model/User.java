@@ -63,6 +63,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "id: " + id + "\nname: " + name + "\nlastname: " + lastName + "\nage: " + age;
+        return "\nid: " + id + "\nname: " + name + "\nlastname: " + lastName + "\nage: " + age + "\n\n";
     }
 }

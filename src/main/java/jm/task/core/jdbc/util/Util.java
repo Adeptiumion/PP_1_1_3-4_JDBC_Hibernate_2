@@ -25,13 +25,14 @@ public class Util {
     private static SessionFactory sessionFactory;
     private static Connection connection;
 
-    private Util(){
+    private Util() {
 
     }
 
-    public static Connection getConnection()  {
+    public static Connection getConnection() {
         try {
-            connection =  DriverManager.getConnection(url, login, password);
+            connection = DriverManager.getConnection(url, login, password);
+            connection.setAutoCommit(false);
         } catch (SQLException e) {
             log.severe("Message: \n" + e.getMessage());
             log.severe("SQL error code: " + e.getErrorCode() + "\n");
@@ -40,8 +41,14 @@ public class Util {
         return connection;
     }
 
-    public static void closeConnection() throws SQLException {
-        connection.close();
+    public static void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            log.severe("Message: \n" + e.getMessage());
+            log.severe("SQL error code: " + e.getErrorCode() + "\n");
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -50,8 +57,8 @@ public class Util {
 
 
     // Этот метод делает настройку Hibernate, и возращает SessionFactory для взаимодействия с БД.
-    public static SessionFactory getSessionFactory(){
-        if (sessionFactory == null){
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
             Configuration cfg = new Configuration(); // Создаю конфигурацию Hibernate.
             Properties settings = new Properties(); // В эту переменную буду пихать настройки Hibernate.
 
