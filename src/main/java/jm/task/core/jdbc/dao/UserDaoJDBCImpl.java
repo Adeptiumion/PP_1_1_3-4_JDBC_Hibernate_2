@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    private static final Logger log = Logger.getLogger(UserDaoJDBCImpl.class.getName()); // Логирую на уровне error.
+    private static final Logger JDBCLogger = Logger.getLogger(UserDaoJDBCImpl.class.getName()); // Логирую на уровне error.
     private final Connection connection = Util.getConnection();
 
 
@@ -31,7 +31,7 @@ public class UserDaoJDBCImpl implements UserDao {
                     )
                     """); // Запрос на создание таблички
         } catch (SQLException e) {
-            log.severe("SQL exception message: " + e.getMessage() + "\n" +
+            JDBCLogger.severe("SQL exception message: " + e.getMessage() + "\n" +
                     "      SQL error code: " + e.getErrorCode() + "\n"); // Логирую то, почему я криворукий.
         }
     }
@@ -41,7 +41,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Statement statement = connection.createStatement()) { // Вызову метод класса-помошника для получения statement.
             statement.execute("DROP TABLE user");
         } catch (SQLException e) {
-            log.severe("SQL exception message: " + e.getMessage() + "\n" +
+            JDBCLogger.severe("SQL exception message: " + e.getMessage() + "\n" +
                     "      SQL error code: " + e.getErrorCode() + "\n"); // Логирую то, почему я криворукий.
         }
 
@@ -59,18 +59,16 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            log.severe("SQL exception message: " + e.getMessage() + "\n" +
+            JDBCLogger.severe("SQL exception message: " + e.getMessage() + "\n" +
                     "      SQL error code: " + e.getErrorCode() + "\n"); // Логирую то, почему я криворукий.
             try {
                 connection.rollback();
             } catch (SQLException z) {
-                log.severe("Can't do rollback - check sql errorCode!");
-                log.severe("SQL exception message: " + z.getMessage() + "\n" +
+                JDBCLogger.severe("Can't do rollback - check sql errorCode!");
+                JDBCLogger.severe("SQL exception message: " + z.getMessage() + "\n" +
                         "      SQL error code: " + z.getErrorCode() + "\n"); // Если траблы с ролбэком.
             }
         }
-
-        log.info("User с именем – " + name + " добавлен в базу данных\n");
     }
 
     @Override
@@ -80,13 +78,13 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException a) {
-            log.severe("SQL exception message: " + a.getMessage() + "\n" +
+            JDBCLogger.severe("SQL exception message: " + a.getMessage() + "\n" +
                     "      SQL error code: " + a.getErrorCode() + "\n"); // Логирую то, почему я криворукий.
             try {
                 connection.rollback();
             } catch (SQLException b) {
-                log.severe("Can't do rollback - check sql errorCode!");
-                log.severe("SQL exception message: " + b.getMessage() + "\n" +
+                JDBCLogger.severe("Can't do rollback - check sql errorCode!");
+                JDBCLogger.severe("SQL exception message: " + b.getMessage() + "\n" +
                         "      SQL error code: " + b.getErrorCode() + "\n"); // Если траблы с ролбэком.
             }
         }
@@ -113,14 +111,13 @@ public class UserDaoJDBCImpl implements UserDao {
             try {
                 connection.rollback();
             } catch (SQLException b) {
-                log.severe("Can't do rollback - check sql errorCode!");
-                log.severe("SQL exception message: " + b.getMessage() + "\n" +
+                JDBCLogger.severe("Can't do rollback - check sql errorCode!");
+                JDBCLogger.severe("SQL exception message: " + b.getMessage() + "\n" +
                         "      SQL error code: " + b.getErrorCode() + "\n");
             }
-            log.severe("SQL exception message: " + e.getMessage() + "\n" +
+            JDBCLogger.severe("SQL exception message: " + e.getMessage() + "\n" +
                     "      SQL error code: " + e.getErrorCode() + "\n"); // Логирую то, почему я криворукий.
         }
-        log.info(userList.toString());
         return userList;
     }
 
@@ -129,7 +126,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Statement statement = connection.createStatement()) { // Вызову метод класса-помошника для получения statement.
             statement.execute("TRUNCATE TABLE user"); // Ничего личного, просто бизнес.)
         } catch (SQLException e) {
-            log.severe("SQL exception message: " + e.getMessage() + "\n" +
+            JDBCLogger.severe("SQL exception message: " + e.getMessage() + "\n" +
                     "      SQL error code: " + e.getErrorCode() + "\n"); // Логирую то, почему я криворукий.
         }
     }
