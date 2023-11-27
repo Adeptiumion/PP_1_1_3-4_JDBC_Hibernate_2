@@ -11,38 +11,38 @@ public class UserServiceImpl implements UserService {
 
     // Хочу логировать вне зависимости от реализации UserDao. ↓
     private static final Logger log = Logger.getLogger(UserDaoJDBCImpl.class.getName());
-    private final UserDao userDaoHibernate = new UserDaoJDBCImpl();
+    private final UserDao userDao = new UserDaoJDBCImpl();
 
     @Override
     public void createUsersTable() {
-        userDaoHibernate.createUsersTable();
+        userDao.createUsersTable();
     }
 
     @Override
     public void dropUsersTable() {
-        userDaoHibernate.dropUsersTable();
+        userDao.dropUsersTable();
     }
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-        userDaoHibernate.saveUser(name, lastName, age);
+        userDao.saveUser(name, lastName, age);
         log.info("User с именем – " + name + " добавлен в базу данных\n"); // ← Вывод в консоль/логирование, добавленного юзверя.
     }
 
     @Override
     public void removeUserById(long id) {
-        userDaoHibernate.removeUserById(id);
+        userDao.removeUserById(id);
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = userDaoHibernate.getAllUsers();
+        List<User> users = userDao.getAllUsers();
         log.info(users.toString()); // ← Вывод в консоль/логирование, все существующих юзверей.
         return users;
     }
 
     @Override
     public void cleanUsersTable() {
-        userDaoHibernate.cleanUsersTable();
+        userDao.cleanUsersTable();
     }
 }

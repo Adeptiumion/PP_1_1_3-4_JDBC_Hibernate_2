@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -40,8 +41,6 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (Exception e) {
             HibernateLogger.severe("Error creating table!");
             e.printStackTrace();
-            if (transaction != null)
-                transaction.rollback();
         }
     }
 
@@ -56,8 +55,6 @@ public class UserDaoHibernateImpl implements UserDao {
             session.getTransaction().commit();
         } catch (Exception e) {
             HibernateLogger.severe("Error dropping table!");
-            if (transaction != null)
-                transaction.rollback();
         }
     }
 
@@ -72,10 +69,10 @@ public class UserDaoHibernateImpl implements UserDao {
             session.save(user);
             transaction.commit();
         } catch (Exception e) {
-            HibernateLogger.severe("Error save user in table!");
-            e.printStackTrace();
             if (transaction != null)
                 transaction.rollback();
+            HibernateLogger.severe("Error save user in table!");
+            e.printStackTrace();
         }
     }
 
@@ -86,26 +83,33 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = sessionFactory.openSession()) {
             HibernateLogger.info("Session is open ?(removeUserById) -> " + session.isOpen());
             transaction = session.beginTransaction();
-            session.delete(session.get(User.class, id));
+            User user = session.get(User.class, id);
+            if (user != null)
+                session.delete(user);
+            else
+                HibernateLogger.severe("Error 404: User with id = " + id + "is not found!");
             transaction.commit();
         } catch (Exception e) {
             HibernateLogger.severe("Error remove user in table!");
-            if (transaction != null)
-                transaction.rollback();
         }
     }
 
     // ????
     @Override
     public List<User> getAllUsers() {
-        List<User> users = null;
+        List<User> users = new ArrayList<>();
+        Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             HibernateLogger.info("Session is open ?(getAllUsers) -> " + session.isOpen());
+            transaction = session.beginTransaction();
             // CriteriaBuilder -> CriteriaQuery<User> -> Root<User> -> select -> Query -> getResultList();
             CriteriaQuery<User> cq = session.getCriteriaBuilder().createQuery(User.class);
             cq.select(cq.from(User.class));
             users = session.createQuery(cq).getResultList();
+            transaction.commit();
         } catch (Exception e) {
+            if (transaction != null)
+                transaction.rollback();
             HibernateLogger.severe("Error getting users! Check table or availability of table.");
             e.printStackTrace();
         }
@@ -123,8 +127,6 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
         } catch (Exception e) {
             HibernateLogger.severe("Error cleaning table. Check availability of table.");
-            if (transaction != null)
-                transaction.rollback();
         }
     }
 }
